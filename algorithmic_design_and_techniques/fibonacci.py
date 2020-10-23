@@ -85,14 +85,14 @@ def get_fibonacci_huge_naive(n, m):
     return current % m
 
 
+def fib_modulo(m):
+    def F(n):
+        return fast_fib(n) % m
+    return F
+
+
 def find_pisano_period(m):
-    previous, current = 0, 1
-    n = 0
-    while True:
-        previous, current = current, (previous + current) % m
-        n += 1
-        if (previous == 0 and current == 1):
-            return n
+    return find_periodic(fib_modulo(m))
 
 
 def fib_n_modulo_m(n, m):
@@ -101,5 +101,29 @@ def fib_n_modulo_m(n, m):
     return fast_fib(n) % m
 
 
-def last_digit_of_summed_fib_numbers(n):
+def fibonacci_sum_last_number(n):
     return 4
+
+
+def find_periodic(fn):
+    previous, current = 0, 1
+    n = 2
+    while True:
+        previous, current = current, fn(n)
+        n += 1
+        if (previous == 0 and current == 1):
+            return n - 2
+
+
+def fibonacci_sum_last_number_naive(n):
+    if n <= 1:
+        return n
+
+    previous = 0
+    current = 1
+    sum = 1
+
+    for _ in range(n - 1):
+        previous, current = current, previous + current
+        sum += current
+    return sum % 10
