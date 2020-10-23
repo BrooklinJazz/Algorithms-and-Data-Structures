@@ -1,28 +1,40 @@
 import unittest
 import random
-from fibonacci import find_pisano_period, get_fibonacci_huge_naive, fib_modulo, fib_n_modulo_m, find_periodic, fast_fib, fibonacci_sum_last_number_naive, fibonacci_sum_last_number
+from fibonacci import fibonacci_partial_sum, fibonacci_partial_sum_naive, find_pisano_period, get_fibonacci_huge_naive, fib_modulo, fib_n_modulo_m, find_periodic, fast_fib, fibonacci_sum_last_number_naive, fibonacci_sum_last_number
+
+
+def random_int(maximum=100):
+    return random.randint(0, maximum)
+
+
+class LastDigitOfAPartialSumOfFibonacciNumbers(unittest.TestCase):
+    constraint = 10 ** 18
+    start = random_int(100)
+    end = random_int(start)
+
+    def test_simple_case(self):
+        self.assertEqual(fibonacci_partial_sum(3, 7), 1)
+
+    def test_against_naive_fn(self):
+        expected = fibonacci_partial_sum_naive(self.start, self.end)
+        actual = fibonacci_partial_sum(self.start, self.end)
+        self.assertEqual(expected, actual)
 
 
 class LastDigitOfTheSumOfFibonacciNumbers(unittest.TestCase):
     constraint = 10 ** 14
 
-    def random_int(self, maximum=100):
-        return random.randint(0, maximum)
-
     def test_simple_case(self):
         self.assertEqual(fibonacci_sum_last_number(3), 4)
 
     def test_against_naive_fn(self):
-        n = self.random_int()
+        n = random_int()
         expected = fibonacci_sum_last_number_naive(n)
         actual = fibonacci_sum_last_number(n)
         self.assertEqual(expected, actual)
 
-    def test_reveal_your_secrets(self):
-        result = []
-        for i in range(1000):
-            result.append(fibonacci_sum_last_number_naive(i))
-        print(result)
+    def test_large_numbers(self):
+        fibonacci_sum_last_number(self.constraint)
 
     def test_find_periodic(self):
         self.assertEqual(3, find_periodic(fib_modulo(2)))
