@@ -1,5 +1,6 @@
 # Uses python3
 from functools import lru_cache
+import test
 
 @lru_cache(100)
 def memoized_fib(n):
@@ -82,5 +83,25 @@ def matrix_exponentiation_fib(N):
 # def find_last_digit(i):
 #     return memoized_fib(i) % 10
 
-n = int(input())
-print(matrix_exponentiation_fib(n)[0])
+# n = int(input())
+# print(matrix_exponentiation_fib(n)[0])
+
+def get_fibonacci_huge_naive(n, m):
+    if n <= 1:
+        return n
+
+    previous = 0
+    current  = 1
+
+    for _ in range(n - 1):
+        previous, current = current, previous + current
+
+    return current % m
+
+
+def fibNModuloM(n, m):
+    matrix_exponentiation_fib
+
+test.matches(get_fibonacci_huge_naive, fibNModuloM, 239, 1000)
+
+
