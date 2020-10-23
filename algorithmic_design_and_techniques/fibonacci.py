@@ -1,6 +1,7 @@
 # Uses python3
+from math import sqrt
 from functools import lru_cache
-import test
+
 
 @lru_cache(100)
 def memoized_fib(n):
@@ -8,6 +9,7 @@ def memoized_fib(n):
         return n
     else:
         return memoized_fib(n-1) + memoized_fib(n-2)
+
 
 def table_fib(n):
     if n < 2:
@@ -19,6 +21,7 @@ def table_fib(n):
         table[i] = table[i-1] + table[i-2]
     return table[n]
 
+
 def iterative_fib(n):
     if n <= 1:
         return n
@@ -27,13 +30,12 @@ def iterative_fib(n):
         previous, current = (current, previous + current)
     return current
 
-from math import sqrt
-
-root_five = sqrt(5)
-phi = (root_five + 1) / 2
 
 def golden_fib(n):
+    root_five = sqrt(5)
+    phi = (root_five + 1) / 2
     return round((phi ** n) / root_five)
+
 
 def matrix_exponentiation_fib(N):
     if N == 0:
@@ -51,54 +53,37 @@ def matrix_exponentiation_fib(N):
         value = (f_2n, f_2n_plus_1)
     return value
 
-# def matrix_exponentiation_fib2(n):
-#     f_n, f_n_plus_1 = 0, 1
-#     for i in range(n.bit_length() - 1, -1, -1):
-#         f_n_squared = f_n * f_n
-#         f_n_plus_1_squared = f_n_plus_1 * f_n_plus_1
-#         f_2n = 2 * f_n * f_n_plus_1 - f_n_squared
-#         f_2n_plus_1 = f_n_squared + f_n_plus_1_squared
-#         if n >> i & 1:
-#             f_n, f_n_plus_1 = f_2n_plus_1, f_2n + f_2n_plus_1
-#         else:
-#             f_n, f_n_plus_1 = f_2n, f_2n_plus_1
-#     return f_n
+
+def matrix_exponentiation_fib2(n):
+    f_n, f_n_plus_1 = 0, 1
+    for i in range(n.bit_length() - 1, -1, -1):
+        f_n_squared = f_n * f_n
+        f_n_plus_1_squared = f_n_plus_1 * f_n_plus_1
+        f_2n = 2 * f_n * f_n_plus_1 - f_n_squared
+        f_2n_plus_1 = f_n_squared + f_n_plus_1_squared
+        if n >> i & 1:
+            f_n, f_n_plus_1 = f_2n_plus_1, f_2n + f_2n_plus_1
+        else:
+            f_n, f_n_plus_1 = f_2n, f_2n_plus_1
+    return f_n
+
 
 def fast_fib(n):
     return matrix_exponentiation_fib(n)[0]
 
-# fib = {0: 0, 1: 1, 2: 1}
-# def calc_large_fib(i):
-#     for x in range(i + 1):
-#         calc_fib(x)
-#     return fib.get(i)
-
-# def calc_fib(i):
-#     value = fib.get(i)
-#     if value is not None:
-#         return value
-#     else:
-#         value = calc_fib(i - 1) + calc_fib(i - 2)
-#         fib[i] = value
-#     return value
-
-# def find_last_digit(i):
-#     return memoized_fib(i) % 10
-
-# n = int(input())
-# print(matrix_exponentiation_fib(n)[0])
 
 def get_fibonacci_huge_naive(n, m):
     if n <= 1:
         return n
 
     previous = 0
-    current  = 1
+    current = 1
 
     for _ in range(n - 1):
         previous, current = current, previous + current
 
     return current % m
+
 
 def find_pisano_period(m):
     previous, current = 0, 1
@@ -110,18 +95,11 @@ def find_pisano_period(m):
             return n
 
 
-def fibNModuloM(n, m):
+def fib_n_modulo_m(n, m):
     pisano = find_pisano_period(m)
     n = n % pisano
     return fast_fib(n) % m
 
-test.matches(3, find_pisano_period, 2)
-test.matches(8, find_pisano_period, 3)
-test.performance(find_pisano_period, 1000)
-test.matches(get_fibonacci_huge_naive, fibNModuloM, 239, 1000)
-test.matches(151, fibNModuloM, 2816213588, 239)
-test.performance(fibNModuloM, 10 ** 18, 10 ** 5)
 
-# test.matches(get_fibonacci_huge_naive, fibNModuloM, 239, 10 ** 18)
-
-
+def last_digit_of_summed_fib_numbers(n):
+    return 4
