@@ -52,7 +52,6 @@ def matrix_exponentiation_fib(N):
     return value
 
 # def matrix_exponentiation_fib2(n):
-#     print(n.bit_length())
 #     f_n, f_n_plus_1 = 0, 1
 #     for i in range(n.bit_length() - 1, -1, -1):
 #         f_n_squared = f_n * f_n
@@ -64,6 +63,9 @@ def matrix_exponentiation_fib(N):
 #         else:
 #             f_n, f_n_plus_1 = f_2n, f_2n_plus_1
 #     return f_n
+
+def fast_fib(n):
+    return matrix_exponentiation_fib(n)[0]
 
 # fib = {0: 0, 1: 1, 2: 1}
 # def calc_large_fib(i):
@@ -98,10 +100,28 @@ def get_fibonacci_huge_naive(n, m):
 
     return current % m
 
+def find_pisano_period(m):
+    previous, current = 0, 1
+    n = 0
+    while True:
+        previous, current = current, (previous + current) % m
+        n += 1
+        if (previous == 0 and current == 1):
+            return n
+
 
 def fibNModuloM(n, m):
-    matrix_exponentiation_fib
+    pisano = find_pisano_period(m)
+    n = n % pisano
+    return fast_fib(n) % m
 
+test.matches(3, find_pisano_period, 2)
+test.matches(8, find_pisano_period, 3)
+test.performance(find_pisano_period, 1000)
 test.matches(get_fibonacci_huge_naive, fibNModuloM, 239, 1000)
+test.matches(151, fibNModuloM, 2816213588, 239)
+test.performance(fibNModuloM, 10 ** 18, 10 ** 5)
+
+# test.matches(get_fibonacci_huge_naive, fibNModuloM, 239, 10 ** 18)
 
 
