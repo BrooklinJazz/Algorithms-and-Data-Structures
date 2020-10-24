@@ -101,12 +101,6 @@ def fib_n_modulo_m(n, m):
     return fast_fib(n) % m
 
 
-def fibonacci_sum_last_number(n):
-    periodic = find_periodic(fibonacci_sum_last_number_naive)
-    n = n % periodic
-    return fibonacci_sum_last_number_naive(n)
-
-
 def find_periodic(fn):
     previous, current = 0, 1
     n = 2
@@ -117,18 +111,27 @@ def find_periodic(fn):
             return n - 2
 
 
-def fibonacci_sum_last_number_naive(n):
+def fibonacci_sum_naive(n):
     if n <= 1:
         return n
-
     previous = 0
     current = 1
     sum = 1
-
     for _ in range(n - 1):
         previous, current = current, previous + current
         sum += current
+    return sum
+
+
+def fibonacci_sum_last_number_naive(n):
+    sum = fibonacci_sum_naive(n)
     return sum % 10
+
+
+def fibonacci_sum_last_number(n):
+    periodic = find_periodic(fibonacci_sum_last_number_naive)
+    n = n % periodic
+    return fibonacci_sum_last_number_naive(n)
 
 
 def fibonacci_partial_sum_naive(from_, to):
@@ -146,5 +149,27 @@ def fibonacci_partial_sum_naive(from_, to):
     return sum % 10
 
 
+def find_fibonacci_partial_sum_periodic(start, end):
+    current = fast_fib(start)
+    next = current + fast_fib(start + 1)
+    sum = 0
+    for _ in range(end - start):
+        sum += current
+        current, next = next, current + next
+
+
+def fibonacci_faster_partial_sum_naive(start, end):
+    current = fast_fib(start)
+    next = fast_fib(start + 1)
+    sum = 0
+    for _ in range((end + 1) - start):
+        sum += current
+        current, next = next, current + next
+    return sum % 10
+
+
 def fibonacci_partial_sum(start, end):
-    return fibonacci_partial_sum_naive(start, end)
+    previous_sum = fibonacci_sum_last_number(start - 1)
+    end_sum = fibonacci_sum_last_number(end)
+    print(previous_sum, end_sum)
+    return (end_sum - previous_sum) % 10
