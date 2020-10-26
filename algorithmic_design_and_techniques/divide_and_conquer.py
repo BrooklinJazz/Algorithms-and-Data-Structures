@@ -1,12 +1,12 @@
-import unittest
-import random
-from divide_and_conquer import binary_search
+def binary_search(search_elements, to_find):
 
-
-class DivideAndConquer(unittest.TestCase):
-
-    def binary_search(self):
-        elements = [1, 5, 8, 12, 13]
-        search_input = [5, 8, 1, 23, 1, 11]
-        self.assertEqual(binary_search(
-            elements, search_input), [2, 0, -1, 0, -1])
+    def F(elements):
+        length = len(search_elements)
+        low = 0
+        high = length - 1
+            mid = length / 2
+        if elements[mid] > to_find:
+            F(elements[:mid], to_find)
+        if elements[mid] < to_find:
+            return F(elements[mid:], to_find)
+    return F(search_elements)
