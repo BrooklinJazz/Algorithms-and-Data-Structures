@@ -1,6 +1,6 @@
 import unittest
 import random
-from greedy_algorithms import optimal_summands, collect_signatures_from_string, has_disjointed, money_change, maximum_loot, maximum_advertising_revenue, collect_signatures, number_of_overlapping
+from greedy_algorithms import is_greater_digit, maximize_salary, optimal_summands, collect_signatures_from_string, has_disjointed, money_change, maximum_loot, maximum_advertising_revenue, collect_signatures, number_of_overlapping
 
 
 class MoneyChange(unittest.TestCase):
@@ -78,6 +78,43 @@ class MaximumNumberOfPrizes(unittest.TestCase):
 
     def test_case_3(self):
         self.assertEquals(optimal_summands(2), [2])
+
+
+class MaximumSalary(unittest.TestCase):
+    def test_greater_digit(self):
+        self.assertTrue(is_greater_digit("999", "998"))
+        self.assertTrue(is_greater_digit("999", "989"))
+        self.assertTrue(is_greater_digit("999", "9997"))
+        self.assertTrue(is_greater_digit("798", "777"))
+        self.assertTrue(is_greater_digit("9", "99"))
+        self.assertTrue(is_greater_digit("2", "21"))
+
+    def test_stress_greater_digit(self):
+        for i in range(100000):
+            a = random.randint(0, 100000)
+            b = random.randint(0, 100000)
+            a = "99999" + str(a)
+            b = "99998" + str(b)
+            self.assertTrue(is_greater_digit(int(a), int(b)),
+                            msg=f'failed with {a} and {b}')
+
+    def test_case_1(self):
+        self.assertEquals(maximize_salary(["21", "2"]), 221)
+
+    def test_case_2(self):
+        self.assertEquals(maximize_salary(["9", "4", "6", "1", "9"]), 99641)
+
+    def test_case_3(self):
+        self.assertEquals(maximize_salary(["222", "212"]), 222212)
+        self.assertEquals(maximize_salary(["212", "222"]), 222212)
+
+    def test_against_strings(self):
+        self.assertEquals(maximize_salary(["222", "212"]), 222212)
+        self.assertEquals(maximize_salary(["212", "222"]), 222212)
+
+    def test_large_dataset(self):
+        arr = list(map(str, range(0, 1000)))
+        self.assertEquals(str(maximize_salary(arr))[0:12], "999998997996")
 
 
 if __name__ == '__main__':

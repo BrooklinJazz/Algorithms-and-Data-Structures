@@ -1,3 +1,4 @@
+
 def money_change(n):
     (tens, remainder) = divmod(n, 10)
     (fives, ones) = divmod(remainder, 5)
@@ -183,3 +184,46 @@ def optimal_summands(n):
             arr.append(i)
             n -= i
     return arr
+
+
+def is_greater_digit(a, b):
+    aStr = str(a)
+    bStr = str(b)
+    smallest_length = min(len(aStr), len(bStr))
+    for i in range(smallest_length):
+        x = int(aStr[i])
+        y = int(bStr[i])
+        if x > y:
+            return True
+        elif x < y:
+            return False
+    return True
+
+
+def maximize_salary(digits):
+    answer = ''
+    while digits != []:
+        maxDigit = 0
+        for d in digits:
+            if is_greater_digit(int(d), maxDigit):
+                maxDigit = int(d)
+        answer += str(maxDigit)
+        digits.remove(str(maxDigit))
+
+    return int(answer)
+
+# def maximize_salary(numbers):
+#     strings = list(map(str, numbers))
+
+#     def highest(s):
+#         return int(s)
+
+#     def digit_count(s):
+#         return len(s)
+
+#     def highest_start(s):
+#         return int(s[0])
+#     strings.sort(key=highest, reverse=True)
+#     strings.sort(key=digit_count)
+#     strings.sort(key=highest_start, reverse=True)
+#     return int(''.join(strings))
