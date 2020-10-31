@@ -143,14 +143,19 @@ def partition(arr, pivot_index, left_most, right_most):
 
 def increment_partition_trackers(arr, pivot_index, left_most, right_most):
     (l, r) = left_most, right_most
-    if arr[l] < arr[pivot_index]:
-        l += 1
-    if arr[r] > arr[pivot_index]:
-        r -= 1
-    if r == pivot_index:
-        r -= 1
-    if l == pivot_index:
-        l += 1
+    if should_swap(arr, pivot_index, l, r):
+        swap(arr, l, r)
+    else:
+        if arr[l] < arr[pivot_index]:
+            l += 1
+        if arr[r] > arr[pivot_index]:
+            r -= 1
+        if r == pivot_index and l == pivot_index:
+            return (l, r)
+        if r == pivot_index:
+            r -= 1
+        if l == pivot_index:
+            l += 1
     return (l, r)
 
 

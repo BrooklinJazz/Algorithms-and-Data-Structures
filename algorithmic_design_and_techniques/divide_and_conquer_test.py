@@ -76,6 +76,16 @@ class QuickSort(unittest.TestCase):
         partition(arr, pivot_index, l, r)
         self.assertEqual(arr[r], 9)
 
+    def test_partition_against_mixed_dataset(self):
+        arr = [20, 8, 9, 12, 2]
+        l = 0
+        r = 4
+        pivot_index = 2
+        partition(arr, pivot_index, l, r)
+        self.assertEqual(arr, [2, 8, 9, 12, 20])
+
+
+
     def test_increment_counters(self):
         left_most = 0
         right_most = 4
