@@ -126,7 +126,7 @@ def quicksort(a, l, r):
 
 
 def find_pivot_index(arr, l, r):
-    return (r - l) // 2
+    return (r + l) // 2
 
 
 def partition(arr, pivot_index, left_most, right_most):
