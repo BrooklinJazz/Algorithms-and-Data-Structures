@@ -46,6 +46,11 @@ class QuickSort(unittest.TestCase):
         quicksort(arr, 3, 4)
         self.assertEqual(arr, [1, 1, 1, 5, 20])
 
+    def test_quicksort_right_half(self):
+        arr = [1, 1, 30, 20, 10]
+        quicksort(arr, 2, 4)
+        self.assertEqual(arr, [1, 1, 10, 20, 30])
+
     def test_find_pivot_index(self):
         arr = [1, 2, 3, 4, 5]
         l = 0
@@ -83,8 +88,6 @@ class QuickSort(unittest.TestCase):
         pivot_index = 2
         partition(arr, pivot_index, l, r)
         self.assertEqual(arr, [2, 8, 9, 12, 20])
-
-
 
     def test_increment_counters(self):
         left_most = 0
