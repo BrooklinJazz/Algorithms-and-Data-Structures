@@ -46,7 +46,7 @@ class LastDigitOfTheSumOfFibonacciNumbers(unittest.TestCase):
         self.assertEqual(expected, actual)
 
     def test_large_numbers(self):
-        fibonacci_sum_last_number(self.constraint)
+       fibonacci_sum_last_number(self.constraint)
 
     def test_find_periodic(self):
         self.assertEqual(3, find_periodic(fib_modulo(2)))
