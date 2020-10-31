@@ -150,6 +150,13 @@ def find_pivot_index(arr, l, r):
 #             pass
 
 
+def insert_pivot(arr, pivot_index, left_most, right_most):
+    if pivot_index < left_most:
+        temp = arr[pivot_index]
+        arr[pivot_index] = arr[left_most]
+        arr[left_most] = temp
+
+
 def should_swap(arr, pivot_index, left, right):
     return arr[left] > arr[pivot_index] and arr[right] < arr[pivot_index]
 
