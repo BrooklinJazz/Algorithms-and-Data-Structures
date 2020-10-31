@@ -133,5 +133,9 @@ def quicksort(a, l, r):
 #     for leftEL in arr:
 #         rightEl = arr[j]
 #         if leftEl >= pivot:
-#             pass 
+#             pass
 #         pass
+
+
+def find_pivot_index(arr, l, r):
+    return (r - l) // 2

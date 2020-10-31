@@ -1,6 +1,6 @@
 import unittest
 import random
-from divide_and_conquer import binary_search, majority_element, proven_majority_element, quicksort
+from divide_and_conquer import binary_search, majority_element, proven_majority_element, quicksort, find_pivot_index
 
 
 class DivideAndConquer(unittest.TestCase):
@@ -48,4 +48,8 @@ class QuickSort(unittest.TestCase):
     # def test_case_already_sorted(self):
     #     arr = [1, 2, 3, 4, 5]
     #     self.assertEqual(quicksort(arr, 0, len(arr) - 1), arr)
-    pass
+    def test_find_pivot_index(self):
+        arr = [1, 2, 3, 4, 5]
+        l = 0
+        r = len(arr) - 1
+        self.assertEqual(find_pivot_index(arr, l, r), 2)
