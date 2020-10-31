@@ -53,13 +53,21 @@ class QuickSort(unittest.TestCase):
     #     r = len(arr) - 1
     #     self.assertEqual(partition(arr, l, r), [2, 3, 2, 2, 9])
 
-    def test_insert_pivot(self):
+    def test_insert_pivot_to_right(self):
         arr = [2, 3, 9, 2, 2]
         left_most = 4
         right_most = 4
         pivot_index = 2
         insert_pivot(arr, pivot_index, left_most, right_most)
         self.assertEqual(arr, [2, 3, 2, 2, 9])
+
+    def test_insert_pivot_to_left(self):
+        arr = [2, 3, 22, 10, 12]
+        left_most = 1
+        right_most = 2
+        pivot_index = 3
+        insert_pivot(arr, pivot_index, left_most, right_most)
+        self.assertEqual(arr, [2, 3, 10, 22, 12])
 
     def test_should_swap(self):
         arr = [10, 3, 9, 2, 2]
