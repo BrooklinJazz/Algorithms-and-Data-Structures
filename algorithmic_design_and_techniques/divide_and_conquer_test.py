@@ -51,10 +51,10 @@ class QuickSort(unittest.TestCase):
         quicksort(arr, 2, 4)
         self.assertEqual(arr, [1, 1, 10, 20, 30])
 
-    # def test_quicksort(self):
-    #     arr = [5, 4, 3, 2, 1]
-    #     quicksort(arr, 0, 4)
-    #     self.assertEqual(arr, [1, 2, 3, 4, 5])
+    def test_quicksort(self):
+        arr = [5, 4, 3, 2, 1]
+        quicksort(arr, 0, 4)
+        self.assertEqual(arr, [1, 2, 3, 4, 5])
 
     def test_find_pivot_index(self):
         arr = [1, 2, 3, 4, 5]
