@@ -1,6 +1,6 @@
 import unittest
 import random
-from divide_and_conquer import binary_search, majority_element, proven_majority_element, quicksort, find_pivot_index, swap
+from divide_and_conquer import binary_search, majority_element, proven_majority_element, quicksort, find_pivot_index, swap, should_swap
 
 
 class DivideAndConquer(unittest.TestCase):
@@ -52,6 +52,13 @@ class QuickSort(unittest.TestCase):
     #     l = 0
     #     r = len(arr) - 1
     #     self.assertEqual(partition(arr, l, r), [2, 3, 2, 2, 9])
+
+    def test_should_swap(self):
+        arr = [10, 3, 9, 2, 2]
+        l = 0
+        r = len(arr) - 1
+        pivot_index = find_pivot_index(arr, l, r)
+        self.assertTrue(should_swap(arr, pivot_index, l, r))
 
     def test_swap(self):
         arr = [10, 3, 9, 2, 2]

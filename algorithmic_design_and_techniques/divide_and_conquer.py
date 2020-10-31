@@ -150,6 +150,10 @@ def find_pivot_index(arr, l, r):
 #             pass
 
 
+def should_swap(arr, pivot_index, left, right):
+    return arr[left] > arr[pivot_index] and arr[right] < arr[pivot_index]
+
+
 def swap(arr, l, r):
     leftNum = arr[l]
     rightNum = arr[r]
