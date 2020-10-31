@@ -1,6 +1,6 @@
 import unittest
 import random
-from divide_and_conquer import binary_search, majority_element, proven_majority_element, quicksort, find_pivot_index, swap, should_swap, insert_pivot
+from divide_and_conquer import binary_search, majority_element, proven_majority_element, quicksort, find_pivot_index, swap, should_swap, insert_pivot, increment_partition_trackers
 
 
 class DivideAndConquer(unittest.TestCase):
@@ -52,6 +52,15 @@ class QuickSort(unittest.TestCase):
     #     l = 0
     #     r = len(arr) - 1
     #     self.assertEqual(partition(arr, l, r), [2, 3, 2, 2, 9])
+
+    def test_increment_counters(self):
+        left_most = 0
+        right_most = 4
+        arr = [2, 3, 9, 2, 2]
+        pivot_index = 2
+        (l, r) = increment_partition_trackers(arr, pivot_index, left_most, right_most)
+        self.assertEqual(l, 1)
+        self.assertEqual(r, 4)
 
     def test_insert_pivot_to_right(self):
         arr = [2, 3, 9, 2, 2]
