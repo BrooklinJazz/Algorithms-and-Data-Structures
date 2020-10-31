@@ -124,30 +124,9 @@ def quicksort(a, l, r):
     quicksort(a, m + 1, r)
     return a
 
-# def quicksort(arr, l, r):
-#     pivot = (l - r) // 2
-#     j = r - 1
-#     if l == r:
-#         return
-
-#     for leftEL in arr:
-#         rightEl = arr[j]
-#         if leftEl >= pivot:
-#             pass
-#         pass
-
 
 def find_pivot_index(arr, l, r):
     return (r - l) // 2
-
-# def partition(arr, l, r):
-#     pivot = find_pivot_index(arr, l, r)
-#     left_most = l
-#     right_most = r
-#     for i in range(r + 1 - l):
-#         if arr[left_most] > arr[pivot] and arr[right_most] <= arr[pivot]:
-
-#             pass
 
 
 def partition(arr, pivot_index, left_most, right_most):
