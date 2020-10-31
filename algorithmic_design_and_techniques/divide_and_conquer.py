@@ -125,8 +125,12 @@ def proven_majority_element(A):
 #     return a
 
 def quicksort(a, l, r):
+    if (l >= r):
+        return
     pivot_index = find_pivot_index(a, l, r)
     partition(a, pivot_index, l, r)
+    quicksort(a, l, pivot_index)
+    quicksort(a, pivot_index + 1, r)
 
 
 def find_pivot_index(arr, l, r):
