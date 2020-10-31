@@ -139,3 +139,19 @@ def quicksort(a, l, r):
 
 def find_pivot_index(arr, l, r):
     return (r - l) // 2
+
+# def partition(arr, l, r):
+#     pivot = find_pivot_index(arr, l, r)
+#     left_most = l
+#     right_most = r
+#     for i in range(r + 1 - l):
+#         if arr[left_most] > arr[pivot] and arr[right_most] <= arr[pivot]:
+
+#             pass
+
+
+def swap(arr, l, r):
+    leftNum = arr[l]
+    rightNum = arr[r]
+    arr[l] = rightNum
+    arr[r] = leftNum
