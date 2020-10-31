@@ -41,6 +41,11 @@ class MajorityElement(unittest.TestCase):
 
 
 class QuickSort(unittest.TestCase):
+    def test_quicksort_end_case(self):
+        arr = [1, 1, 1, 20, 5]
+        quicksort(arr, 3, 4)
+        self.assertEqual(arr, [1, 1, 1, 5, 20])
+
     def test_find_pivot_index(self):
         arr = [1, 2, 3, 4, 5]
         l = 0

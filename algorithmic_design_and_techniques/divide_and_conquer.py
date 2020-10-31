@@ -102,27 +102,31 @@ def proven_majority_element(A):
         return 0
 
 
-def partition2(a, l, r):
-    x = a[l]
-    j = l
-    for i in range(l + 1, r + 1):
-        if a[i] <= x:
-            j += 1
-            a[i], a[j] = a[j], a[i]
-    a[l], a[j] = a[j], a[l]
-    return j
+# def partition2(a, l, r):
+#     x = a[l]
+#     j = l
+#     for i in range(l + 1, r + 1):
+#         if a[i] <= x:
+#             j += 1
+#             a[i], a[j] = a[j], a[i]
+#     a[l], a[j] = a[j], a[l]
+#     return j
 
+
+# def quicksort(a, l, r):
+#     if l >= r:
+#         return
+#     k = random.randint(l, r)
+#     a[l], a[k] = a[k], a[l]
+#     # use partition3
+#     m = partition2(a, l, r)
+#     quicksort(a, l, m - 1)
+#     quicksort(a, m + 1, r)
+#     return a
 
 def quicksort(a, l, r):
-    if l >= r:
-        return
-    k = random.randint(l, r)
-    a[l], a[k] = a[k], a[l]
-    # use partition3
-    m = partition2(a, l, r)
-    quicksort(a, l, m - 1)
-    quicksort(a, m + 1, r)
-    return a
+    pivot_index = find_pivot_index(a, l, r)
+    partition(a, pivot_index, l, r)
 
 
 def find_pivot_index(arr, l, r):
