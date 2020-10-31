@@ -150,6 +150,11 @@ def find_pivot_index(arr, l, r):
 #             pass
 
 
+def partition(arr, pivot_index, left_most, right_most):
+    if left_most == right_most:
+        insert_pivot(arr, pivot_index, left_most, right_most)
+
+
 def increment_partition_trackers(arr, pivot_index, left_most, right_most):
     (l, r) = left_most, right_most
     if arr[l] < arr[pivot_index]:
