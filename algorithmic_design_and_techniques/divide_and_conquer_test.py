@@ -55,6 +55,14 @@ class QuickSort(unittest.TestCase):
         partition(arr, pivot_index, l, r)
         self.assertEqual(arr, [2, 3, 2, 2, 9])
 
+    def test_partition_against_right_only_dataset(self):
+        arr = [21, 28, 9, 22, 19]
+        l = 0
+        r = 4
+        pivot_index = 2
+        partition(arr, pivot_index, l, r)
+        self.assertEqual(arr[0], 9)
+
     def test_partition_against_left_only_dataset(self):
         arr = [2, 3, 9, 2, 2]
         l = 0
