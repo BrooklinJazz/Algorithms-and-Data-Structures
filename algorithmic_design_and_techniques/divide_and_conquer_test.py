@@ -58,8 +58,12 @@ class QuickSort(unittest.TestCase):
         right_most = 4
         arr = [2, 3, 9, 2, 2]
         pivot_index = 2
-        (l, r) = increment_partition_trackers(arr, pivot_index, left_most, right_most)
+        (l, r) = increment_partition_trackers(
+            arr, pivot_index, left_most, right_most)
         self.assertEqual(l, 1)
+        self.assertEqual(r, 4)
+        (l, r) = increment_partition_trackers(arr, pivot_index, l, r)
+        self.assertEqual(l, 3)
         self.assertEqual(r, 4)
 
     def test_insert_pivot_to_right(self):
