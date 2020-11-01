@@ -172,9 +172,7 @@ def insert_pivot(arr, pivot_index, left_most, right_most):
     if pivot_index < left_most:
         arr[pivot_index], arr[left_most] = arr[left_most], arr[pivot_index]
     if left_most < pivot_index:
-        temp = arr[pivot_index]
-        arr[pivot_index] = arr[right_most]
-        arr[right_most] = temp
+        arr[pivot_index], arr[right_most] = arr[right_most], arr[pivot_index]
 
 
 def should_swap(arr, pivot_index, left, right):
