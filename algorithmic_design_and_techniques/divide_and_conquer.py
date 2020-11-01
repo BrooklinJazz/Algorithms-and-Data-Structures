@@ -160,10 +160,15 @@ def increment_partition_trackers(arr, pivot_index, left_most, right_most):
             r -= 1
         if l == pivot_index:
             l += 1
+        if l >= r:
+            return l, r
     return (l, r)
 
 
 def insert_pivot(arr, pivot_index, left_most, right_most):
+    if arr[pivot_index] < arr[left_most] and left_most > pivot_index:
+        # messed up case here. not sure what to do to handle it
+        return
     if pivot_index < left_most:
         temp = arr[pivot_index]
         arr[pivot_index] = arr[left_most]

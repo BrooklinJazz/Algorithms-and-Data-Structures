@@ -61,8 +61,30 @@ class QuickSort(unittest.TestCase):
         quicksort(arr, 0, 5)
         self.assertEqual(arr, [0, 1, 2, 3, 4, 5])
 
+    # def test_quicksort_many_elements(self):
+    #     num = 5
+    #     start = 0
+    #     arr = [0, 4, 2, 3, 1]
+    #     arr2 = list(range(start, num))
+    #     # random.shuffle(arr)
+
+    #     quicksort(arr, 0, 4)
+    #     self.assertEqual(arr, arr2)
+
+    def test_partition_repeatedly(self):
+        start = 0
+        arr = [0, 4, 2, 3, 1]
+        arr2 = list(range(start, 5))
+        # random.shuffle(arr)
+
+        partition(arr, 2, 0, 4)
+        self.assertEqual(arr[2], 2)
+        # partition(arr, 1, 0, 2)
+        # partition(arr, 3, 3, 4)
+        # self.assertEqual(arr, arr2)
+
     def test_find_pivot_index(self):
-        arr = [1, 2, 3, 4, 5]
+        arr = [1, 2, 3, 4, 5, 6]
         l = 0
         r = len(arr) - 1
         self.assertEqual(find_pivot_index(arr, l, r), 2)
