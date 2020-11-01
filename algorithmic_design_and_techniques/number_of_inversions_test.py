@@ -3,31 +3,34 @@ import math
 
 
 def merge(arr, left, right):
-    mid = math.ceil((right + left) / 2)
-    while left <= right:
-        if arr[left] <= arr[mid]:
-            left += 1
-        elif arr[right] <= arr[left]:
-            # count 1
-            arr[left], arr[mid] = arr[mid], arr[left]
-
-# def merge_count(arr, left, right):
-#     mid = (left + right) // 2
-#     if (left == right):
-#         return;
-#     merge_count(arr, left, mid)
-#     merge_count(arr, mid + 1, right)
-#     merge()
-
-
-# def count_inversions(arr):
-#     merge_count(arr, 0, len(arr) - 1)
+    # while the temp array is not of size right - left
+    temp = []
+    mid = math.ceil((right - left) / 2)
+    left_crawl = left
+    right_crawl = mid
+    while (left_crawl < mid and right_crawl <= right):
+        if arr[left_crawl] < arr[right_crawl]:
+            temp.append(arr[left_crawl])
+            left_crawl += 1
+        else:
+            temp.append(arr[right_crawl])
+            right_crawl += 1
+    if left_crawl < mid:
+        temp = temp + arr[left_crawl:mid]
+    if right_crawl < right:
+        temp = temp + arr[right_crawl:right]
+    arr[left: right + 1] = temp
 
 
 class NumberOfInversions(unittest.TestCase):
-    def test_merge(self):
+    def test_merge_2_el_array(self):
         arr = [2, 1]
         merge(arr, 0, 1)
         self.assertEqual(arr, [1, 2])
+
+    def test_merge_4_el_array(self):
+        arr = [3, 4, 1, 2]
+        merge(arr, 0, 3)
+        self.assertEqual(arr, [1, 2, 3, 4])
     # def test_case1(self):
     #     self.assertEqual(count_inversions([2, 3, 9, 2, 9])
