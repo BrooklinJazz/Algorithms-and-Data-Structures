@@ -170,9 +170,7 @@ def insert_pivot(arr, pivot_index, left_most, right_most):
         # messed up case here. not sure what to do to handle it
         return
     if pivot_index < left_most:
-        temp = arr[pivot_index]
-        arr[pivot_index] = arr[left_most]
-        arr[left_most] = temp
+        arr[pivot_index], arr[left_most] = arr[left_most], arr[pivot_index]
     if left_most < pivot_index:
         temp = arr[pivot_index]
         arr[pivot_index] = arr[right_most]
