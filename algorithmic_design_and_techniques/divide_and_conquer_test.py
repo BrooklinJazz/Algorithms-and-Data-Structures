@@ -51,7 +51,7 @@ class QuickSort(unittest.TestCase):
         quicksort(arr, 2, 4)
         self.assertEqual(arr, [1, 1, 10, 20, 30])
 
-    def test_quicksort(self):
+    def test_quicksort_odd_number_of_elements(self):
         arr = [5, 4, 3, 2, 1]
         quicksort(arr, 0, 4)
         self.assertEqual(arr, [1, 2, 3, 4, 5])
