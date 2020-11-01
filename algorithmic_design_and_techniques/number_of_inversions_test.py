@@ -2,26 +2,33 @@ import unittest
 import math
 
 
-def merge(arr, left, right):
-    # while the temp array is not of size right - left
-    if (left == right):
-        return
-    temp = []
-    mid = math.ceil((right + left) / 2)
-    left_crawl = left
+def merge(arr, l, r) -> int:
+    if l == r:
+        return 1
+    left_crawl = l
+    mid = math.ceil((r + l) / 2)
     right_crawl = mid
-    while (left_crawl < mid and right_crawl <= right):
-        if arr[left_crawl] < arr[right_crawl]:
+    temp = []
+    while(left_crawl < mid and right_crawl <= r):
+        if arr[left_crawl] <= arr[right_crawl]:
             temp.append(arr[left_crawl])
             left_crawl += 1
         else:
             temp.append(arr[right_crawl])
             right_crawl += 1
-    if left_crawl < mid:
-        temp = temp + arr[left_crawl:mid]
-    if right_crawl < right:
-        temp = temp + arr[right_crawl:right]
-    arr[left: right + 1] = temp
+
+    while(right_crawl <= r):
+        temp.append(arr[right_crawl])
+        right_crawl += 1
+
+    while(left_crawl < mid):
+        temp.append(arr[left_crawl])
+        left_crawl += 1
+
+    for i, el in enumerate(temp):
+        arr[i + l] = el
+
+    return 1
 
 
 def mergesort(arr, l, r):
@@ -31,6 +38,16 @@ def mergesort(arr, l, r):
     mergesort(arr, l, mid)
     mergesort(arr, mid + 1, r)
     merge(arr, l, r)
+
+
+def count_inversions(arr, l, r) -> int:
+    mid = (r + l) // 2
+    if (l == r):
+        return 0
+    count1 = count_inversions(arr, l, mid)
+    count2 = count_inversions(arr, mid + 1, r)
+
+    return merge(arr, l, r) + count1 + count2
 
 
 class NumberOfInversions(unittest.TestCase):
@@ -59,5 +76,10 @@ class NumberOfInversions(unittest.TestCase):
         mergesort(arr, 0, 3)
         self.assertEqual(arr, [1, 2, 3, 4])
 
-    # def test_case1(self):
-    #     self.assertEqual(count_inversions([2, 3, 9, 2, 9])
+    def test_merge_sort_count_inversions(self):
+        arr = [4, 3, 2, 1]
+        count_inversions(arr, 0, 3)
+        self.assertEqual(arr, [1, 2, 3, 4])
+
+    def test_case1(self):
+        self.assertEqual(count_inversions([2, 3, 9, 2, 9], 0, 4), 2)
