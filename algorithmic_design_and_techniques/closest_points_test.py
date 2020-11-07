@@ -1,13 +1,14 @@
 import unittest
 import math
 import time
+import random
 
 
 def calculate_distance(x1, y1, x2, y2):
     return math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
 
 
-# def brute_force(xs, ys):
+# def bdrute_force(xs, ys):
 #     smallest = calculate_distance(xs[0], ys[0], xs[1], ys[1])
 #     for i in range(len(xs)):
 #         for j in range(len(xs)):
@@ -47,8 +48,6 @@ def brute_force(arr):
 
 def closest_points(points):
     n = len(points)
-    if len(points) <= 3:
-        return brute_force(points)
     points_by_x = sortX(points)
     points_by_y = sortY(points)
     return CP(points_by_x, points_by_y, n)
@@ -66,8 +65,8 @@ def strip_closest(strip, d):
     min_d = d
 
     for i, p1 in enumerate(strip):
-        j = i
-        while (j < len(strip) and strip[j][y] - strip[i][y] < min_d):
+        j = i + 1
+        while (j < len(strip) and (strip[j][y] - strip[i][y]) < min_d):
             new_dist = dist(strip[i], strip[j])
             if new_dist < min_d:
                 min_d = new_dist
@@ -76,13 +75,15 @@ def strip_closest(strip, d):
 
 
 def CP(Px, Py, n):
+    if n <= 3:
+        return brute_force(Px)
     mid = n // 2
     mid_point = Px[mid]
     Pyl = []
     Pyr = []  # can't this just be mid + 1?
     li, ri = 0, 0
 
-    for i in range(n):
+    for i in range(len(Py)):
         if Py[i][x] <= mid_point[x] and li < mid:
             Pyl.append(Py[i])
             li += 1
@@ -91,12 +92,12 @@ def CP(Px, Py, n):
 
     dl = CP(Px, Pyl, mid)
     # won't Px + mid break?
-    dr = CP(Px + mid, Pyr, n-mid)
+    dr = CP(Px, Pyr, n-mid)
     d = min(dl, dr)
 
     strip = []
     j = 0
-    for i in range(n):
+    for i in range(len(Py)):
         if abs((Py[i][x] - mid_point[x]) < d):
             strip.append(Py[i])
 
@@ -127,12 +128,17 @@ class ClosestPoints(unittest.TestCase):
         points = [[0, 0], [3, 4]]
         self.assertEqual(tested_closest_points(points), 5)
 
-    # def test_against_naive(self):
-    #     num = 100
-    #     xs = list(range(num))
-    #     ys = list(range(num))
-    #     self.assertEqual(tested_closest_points(xs, ys),
-    #                      brute_force(xs, ys))
+    def test_against_naive(self):
+        num = 100
+        xs = list(range(num))
+        ys = list(range(num))
+        random.shuffle(xs)
+        random.shuffle(ys)
+        points = []
+        for x, y in zip(xs, ys):
+            points.append([x, y])
+        self.assertEqual(tested_closest_points(points),
+                         brute_force(points))
 
     def test_naive_coinciding(self):
         points = [[7, 7], [1, 100], [4, 8], [7, 7]]
