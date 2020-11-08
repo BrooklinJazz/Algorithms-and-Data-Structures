@@ -73,6 +73,13 @@ def strip_closest(strip, d):
             j += 1
     return min_d
 
+# split points into sorted Px and Py
+# brute force values <= 3
+# create Pyl and Pyr
+# find d = min(dl, dr) where dl are recursively calculated for Pyl and Pyr
+# create strip of all possible candidates Py where distance to mid_point is smaller than d
+# strip_closest: for each point calculate the smallest distance ignoring y differences greater than min_d
+
 
 def CP(Px, Py, n):
     if n <= 3:
@@ -80,7 +87,7 @@ def CP(Px, Py, n):
     mid = n // 2
     mid_point = Px[mid]
     Pyl = []
-    Pyr = []  # can't this just be mid + 1?
+    Pyr = []
     li, ri = 0, 0
 
     for i in range(len(Py)):
@@ -91,7 +98,6 @@ def CP(Px, Py, n):
             Pyr.append(Py[i])
 
     dl = CP(Px, Pyl, mid)
-    # won't Px + mid break?
     dr = CP(Px, Pyr, n-mid)
     d = min(dl, dr)
 
@@ -104,6 +110,13 @@ def CP(Px, Py, n):
     return strip_closest(strip, d)
 
 
+def format_points(xs, ys):
+    points = []
+    for x, y in zip(xs, ys):
+        points.append([x, y])
+    return points
+
+
 tested_closest_points = closest_points
 
 
@@ -114,15 +127,21 @@ class ClosestPoints(unittest.TestCase):
     def test_sort_y(self):
         self.assertEqual(sortY([[0, 2], [1, 0]]), [[1, 0], [0, 2]])
 
-    # def test_elapsed_time(self):
-    #     start = time.monotonic()
-    #     num = 3000
-    #     xs = list(range(num))
-    #     ys = list(range(num))
-    #     tested_closest_points(xs, ys)
-    #     end = time.monotonic()
-    #     elapsed = end - start
-    #     self.assertTrue(elapsed < 5)
+    def test_elapsed_time(self):
+
+        num = 1000
+        xs = list(range(num))
+        ys = list(range(num))
+        random.shuffle(xs)
+        random.shuffle(ys)
+        points = []
+        for x, y in zip(xs, ys):
+            points.append([x, y])
+        start = time.monotonic()
+        tested_closest_points(points)
+        end = time.monotonic()
+        elapsed = end - start
+        self.assertTrue(elapsed < 5)
 
     def test_simple(self):
         points = [[0, 0], [3, 4]]
@@ -134,9 +153,7 @@ class ClosestPoints(unittest.TestCase):
         ys = list(range(num))
         random.shuffle(xs)
         random.shuffle(ys)
-        points = []
-        for x, y in zip(xs, ys):
-            points.append([x, y])
+        points = format_points(xs, ys)
         self.assertEqual(tested_closest_points(points),
                          brute_force(points))
 
