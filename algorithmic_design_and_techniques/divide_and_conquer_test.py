@@ -161,4 +161,5 @@ class MajorityElement(unittest.TestCase):
 #         l = 0
 #         r = len(arr) - 1
 #         swap(arr, l, r)
+
 #         self.assertEqual(arr, [2, 3, 9, 2, 10])
