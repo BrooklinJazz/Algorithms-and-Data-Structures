@@ -33,10 +33,6 @@ def longest_common_sequence(a, b):
                 res = 1 + dp[a_i - 1][b_i - 1]
                 dp[a_i][b_i] = res
                 max_count = max(res, max_count)
-            # else:
-            #     dp[a_i][b_i] = max(dp[a_i - 1][b_i - 1],
-            #                        dp[a_i - 1][b_i], dp[a_i][b_i - 1])
-
     return max_count
 
 
