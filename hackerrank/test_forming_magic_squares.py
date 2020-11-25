@@ -1,18 +1,42 @@
+import copy
 import sys
 import pytest
 
 
 def cost_to_form_magic_square(s):
-    all_magic_squares = generate_all_magic_squares(s)
-    result = sys.maxint
+    all_magic_squares = generate_all_magic_squares()
+    result = sys.maxsize
     for m in all_magic_squares:
         result = min(cost_to_form(s, m), result)
 
     return result
 
 
-def generate_all_magic_squares(s):
-    return [s]
+# obviously broken
+def find_nearest_magic_constant(s):
+    return 15
+
+
+def rotate_r(s):
+    temp = copy.deepcopy(s)
+    temp[0][0] = s[1][0]
+    temp[0][1] = s[0][0]
+    temp[0][2] = s[0][1]
+    temp[1][0] = s[2][0]
+    temp[1][2] = s[0][2]
+    temp[2][0] = s[2][1]
+    temp[2][1] = s[2][2]
+    temp[2][2] = s[1][2]
+    return temp
+
+
+def generate_all_magic_squares():
+    square = [[6, 1, 8], [7, 5, 3], [2, 9, 4]]
+    result = [square]
+    for i in range(7):
+        square = rotate_r(square)
+        result.append(square)
+    return result
 
 
 def cost_to_form(s, m):
@@ -46,11 +70,31 @@ def is_magic_square(s):
     return True
 
 
+non_magic_square_static_center = [[4, 8, 2], [4, 5, 7], [6, 1, 6]]
+magic_square_option_1 = [[4, 9, 2], [4, 5, 6], [7, 1, 7]]
+magic_square_option_2 = [[4, 8, 3], [4, 5, 6], [7, 2, 6]]
+
 non_magic_square = [[5, 3, 4], [1, 5, 8], [6, 4, 2]]
 magic_square = [[8, 3, 4], [1, 5, 9], [6, 7, 2]]
 
 non_magic_square2 = [[4, 9, 2], [3, 5, 7], [8, 1, 5]]
 magic_square2 = [[4, 9, 2], [3, 5, 7], [8, 1, 6]]
+
+
+def test_generate_all_magic_squares():
+    assert len(generate_all_magic_squares()) == 8
+
+
+def test_rotate_right():
+    square = [[6, 1, 8], [7, 5, 3], [2, 9, 4]]
+    assert rotate_r(square)[0] == [7, 6, 1]
+    assert rotate_r(square)[1] == [2, 5, 8]
+    assert rotate_r(square)[2] == [9, 4, 3]
+
+
+def test_cost_to_form_magic_square():
+    assert cost_to_form_magic_square(non_magic_square) == 7
+    assert cost_to_form_magic_square(non_magic_square2) == 1
 
 
 def test_cost_to_form_7_changes():
