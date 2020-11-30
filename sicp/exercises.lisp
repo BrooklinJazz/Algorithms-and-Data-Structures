@@ -2,4 +2,36 @@
 ; 1. recursive
 ; 2. iterative
 
+; 1.10 what are the following values of ackermans function A(x y)
+
+(defun ackermann (x y)
+    (cond ((= y 0) 0)
+          ((= x 0) (* 2 y))
+          ((= y 1) 2)
+          (t (ackermann (- x 1) (ackermann x (- y 1))))))
+; (A 1 10)
+; -> 1024
+(ackermann 1 10)
+; (A 2 4)
+(ackermann 2 4)
+; -> 65536
+; (A 3 3
+(ackermann 3 3)
+;65536
+(ackermann 2 4)
+
+; a function F is defined by the rule f(n) = n if n < 3 and f(n) = f(n - 1) + 2f(n - 2) + 3f(n - 3) if n >= 3
+; write a procedure for the above using recorsive process
+(defun work-on (x)
+  (cond ((< x 3) x)
+        ((>= x 3) 
+         (+ (work-on (- x 1))
+            (* 2 (work-on (- x 2)))
+            (* 3 (work-on (- x 3)))
+            ))
+        )
+  )
+(work-on 5)
+(< 2 3)
+; write a procedure for the above using iterative process
 
