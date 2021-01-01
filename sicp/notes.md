@@ -84,7 +84,31 @@ syntactic sugar
 	- for example a On operations grows at a rate of n so it is a linear recursive process
 	- hidden information maintained by the interpreter
 
+# 2.1 Representing Rational Numbers
+- cons
+	- car
+	- cdr	
+
+# 1.B Procedures and Processes; Substitution Model.
+- shapes of processes
+- iterative
+	- time = O(x)
+	- space = O(1)
+- vs recursive
+- time vs space complexity
+
+# Representing Sequences
+- closure property of cons: the ability to create pairs whose elements are pairs
+- trees and other data types can be represented by using the closure property of cons:
+
 ## Test Questions
 1. what is the diff between declarative and imperative knowledge
 2. Define linear iterative process and linear recursive process
+
+cons(a,b) => (a, b)
+cons(c, cons(a,b)) => (c, (a,b))
+car (c,(a,b)) => c
+cdr (c, (a,b)) => (a,b)
+((a,b), (c,d))
+
 
